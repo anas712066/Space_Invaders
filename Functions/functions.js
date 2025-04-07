@@ -26,12 +26,74 @@ const keysPressed = {};
 // Evento para registrar cuando una tecla es presionada
 document.addEventListener("keydown", (event) => {
     keysPressed[event.key] = true; // Marca la tecla como presionada
+
+    // Disparo del jugador 1 con la tecla "W"
+    if (event.key === "w" || event.key === "W") {
+        shootBullet("character1");
+    }
+    // Disparo del jugador 2 con la tecla "Flecha Arriba"
+    if (event.key === "ArrowUp") {
+        shootBullet("character2");
+    }
 });
 
 // Evento para registrar cuando una tecla es soltada
 document.addEventListener("keyup", (event) => {
     keysPressed[event.key] = false; // Marca la tecla como no presionada
 });
+
+// Función para disparar una bala
+function shootBullet(playerId) {
+    const player = document.getElementById(playerId);
+    const container = document.getElementById("espacioMaximo");
+
+    // Crear la bala como un elemento <img>
+    const bullet = document.createElement("img");
+    bullet.src = "Images/Projectiles/missile_1.png"; // Ruta de la imagen de la bala
+    bullet.className = "bullet";
+    bullet.style.position = "absolute";
+    bullet.style.width = "10px";
+    bullet.style.height = "20px";
+
+    // Posicionar la bala en el centro del jugador
+    bullet.style.left = `${player.offsetLeft + player.offsetWidth / 2 - 5}px`;
+    bullet.style.top = `${player.offsetTop - 20}px`;
+
+    // Agregar la bala al contenedor
+    container.appendChild(bullet);
+
+    // Mover la bala hacia arriba y detectar colisiones
+    const bulletInterval = setInterval(() => {
+        const bulletTop = parseInt(bullet.style.top);
+
+        // Detectar colisión con enemigos
+        const enemies = document.querySelectorAll(".enemy"); // Selecciona todos los enemigos
+        enemies.forEach((enemy) => {
+            const enemyRect = enemy.getBoundingClientRect();
+            const bulletRect = bullet.getBoundingClientRect();
+
+            if (
+                bulletRect.left < enemyRect.right &&
+                bulletRect.right > enemyRect.left &&
+                bulletRect.top < enemyRect.bottom &&
+                bulletRect.bottom > enemyRect.top
+            ) {
+                // Colisión detectada: eliminar la bala y el enemigo
+                bullet.remove();
+                enemy.remove();
+                clearInterval(bulletInterval);
+            }
+        });
+
+        // Si la bala sale del contenedor, eliminarla
+        if (bulletTop <= 0) {
+            bullet.remove();
+            clearInterval(bulletInterval);
+        } else {
+            bullet.style.top = `${bulletTop - 10}px`; // Velocidad de la bala
+        }
+    }, 30); // Intervalo de movimiento
+}
 
 // Función para mover a los jugadores
 function movePlayers() {
