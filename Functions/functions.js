@@ -22,21 +22,36 @@ function sumarKillP2() {
 
 // Objeto para rastrear las teclas presionadas
 const keysPressed = {};
+const keysFired = {}; // Objeto para rastrear si ya se disparó con una tecla
 
 // Evento para registrar cuando una tecla es presionada
 document.addEventListener("keydown", (event) => {
-    keysPressed[event.key] = true; // Marca la tecla como presionada
+    if (!keysPressed[event.key]) {
+        keysPressed[event.key] = true; // Marca la tecla como presionada
 
-    // Disparo del jugador 1 con la tecla "W"
-    if (event.key === "w" || event.key === "W") {
-        shootBullet("character1");
-    }
-    // Disparo del jugador 2 con la tecla "Flecha Arriba"
-    if (event.key === "ArrowUp") {
-        shootBullet("character2");
+        // Disparo del jugador 1 con la tecla "W"
+        if (event.key === "w" || event.key === "W") {
+            if (!keysFired["w"]) {
+                shootBullet("character1");
+                keysFired["w"] = true; // Marca que ya se disparó con esta tecla
+            }
+        }
+
+        // Disparo del jugador 2 con la tecla "Flecha Arriba"
+        if (event.key === "ArrowUp") {
+            if (!keysFired["ArrowUp"]) {
+                shootBullet("character2");
+                keysFired["ArrowUp"] = true; // Marca que ya se disparó con esta tecla
+            }
+        }
     }
 });
 
+// Evento para registrar cuando una tecla es soltada
+document.addEventListener("keyup", (event) => {
+    keysPressed[event.key] = false; // Marca la tecla como no presionada
+    keysFired[event.key] = false; // Permite disparar nuevamente cuando se suelte la tecla
+});
 // Evento para registrar cuando una tecla es soltada
 document.addEventListener("keyup", (event) => {
     keysPressed[event.key] = false; // Marca la tecla como no presionada
