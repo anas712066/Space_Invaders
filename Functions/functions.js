@@ -45,7 +45,6 @@ document.addEventListener("keyup", (event) => {
 // Función para disparar una bala
 function shootBullet(playerId) {
     const player = document.getElementById(playerId);
-    const container = document.getElementById("espacioMaximo");
 
     // Crear la bala como un elemento <img>
     const bullet = document.createElement("img");
@@ -56,11 +55,12 @@ function shootBullet(playerId) {
     bullet.style.height = "20px";
 
     // Posicionar la bala en el centro del jugador
-    bullet.style.left = `${player.offsetLeft + player.offsetWidth / 2 - 5}px`;
-    bullet.style.top = `${player.offsetTop - 20}px`;
+    const playerRect = player.getBoundingClientRect();
+    bullet.style.left = `${playerRect.left + playerRect.width / 2 - 5}px`;
+    bullet.style.top = `${playerRect.top - 20}px`;
 
-    // Agregar la bala al contenedor
-    container.appendChild(bullet);
+    // Agregar la bala al body
+    document.body.appendChild(bullet);
 
     // Mover la bala hacia arriba y detectar colisiones
     const bulletInterval = setInterval(() => {
@@ -85,7 +85,7 @@ function shootBullet(playerId) {
             }
         });
 
-        // Si la bala sale del contenedor, eliminarla
+        // Si la bala sale de la pantalla, eliminarla
         if (bulletTop <= 0) {
             bullet.remove();
             clearInterval(bulletInterval);
