@@ -19,26 +19,60 @@ function sumarKillP2() {
     document.querySelector("#killsPlayer2").innerHTML = killsp2;
 }
 
-// Movimiento Player1
 
+// Objeto para rastrear las teclas presionadas
+const keysPressed = {};
+
+// Evento para registrar cuando una tecla es presionada
 document.addEventListener("keydown", (event) => {
-    const character = document.getElementById("character");
-    const container = document.getElementById("container");
-    let leftPosition = character.offsetLeft;
-
-    const movementSpeed = 10; // Ajusta la velocidad del movimiento
-
-    if (event.key === "a" || event.key === "A") {
-        character.style.left = `${leftPosition - movementSpeed}px`;
-    } else if (event.key === "d" || event.key === "D") {
-        character.style.left = `${leftPosition + movementSpeed}px`;
-    }
+    keysPressed[event.key] = true; // Marca la tecla como presionada
 });
 
+// Evento para registrar cuando una tecla es soltada
+document.addEventListener("keyup", (event) => {
+    keysPressed[event.key] = false; // Marca la tecla como no presionada
+});
 
-// Detectar teclas
-//function pressRight (event){
-   
-    //alert('Respuesta a la tecla ${event.key}');
-        
-//}
+// Función para mover a los jugadores
+function movePlayers() {
+    // Movimiento del jugador 1 (A y D)
+    const character1 = document.getElementById("character1");
+    const container = document.getElementById("espacioMaximo");
+    const movementSpeed = 4;
+    const containerWidth = container.offsetWidth;
+    const character1Width = character1.offsetWidth;
+    let leftPosition1 = character1.offsetLeft;
+
+    if (keysPressed["a"] || keysPressed["A"]) {
+        if (leftPosition1 - movementSpeed >= 0) {
+            character1.style.left = `${leftPosition1 - movementSpeed}px`;
+        }
+    }
+    if (keysPressed["d"] || keysPressed["D"]) {
+        if (leftPosition1 + movementSpeed + character1Width <= containerWidth) {
+            character1.style.left = `${leftPosition1 + movementSpeed}px`;
+        }
+    }
+
+    // Movimiento del jugador 2 (Flechas izquierda y derecha)
+    const character2 = document.getElementById("character2");
+    const character2Width = character2.offsetWidth;
+    let leftPosition2 = character2.offsetLeft;
+
+    if (keysPressed["ArrowLeft"]) {
+        if (leftPosition2 - movementSpeed >= 0) {
+            character2.style.left = `${leftPosition2 - movementSpeed}px`;
+        }
+    }
+    if (keysPressed["ArrowRight"]) {
+        if (leftPosition2 + movementSpeed + character2Width <= containerWidth) {
+            character2.style.left = `${leftPosition2 + movementSpeed}px`;
+        }
+    }
+
+    // Llama a esta función en el siguiente frame
+    requestAnimationFrame(movePlayers);
+}
+
+// Inicia el bucle de movimiento
+movePlayers();

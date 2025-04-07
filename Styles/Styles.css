@@ -25,3 +25,26 @@
 .sperate-gif {
     margin: 10px;
 }
+
+.relative {
+    position: relative;
+    display: inline-block;
+}
+
+.player1{
+    position: absolute; 
+    left: 20%; 
+    top: 50%; 
+    transform: translateY(-50%);
+}
+
+.player2{
+    position: absolute; 
+    left: 80%; 
+    top: 50%; 
+    transform: translateY(-50%);
+}
+
+.espacio{
+    padding: 20px;
+}
