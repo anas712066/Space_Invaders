@@ -28,7 +28,7 @@ body {
 }
 
 .mh-enemigos {
-    min-height: 90px;
+    min-height: 80px;
     
 }
 
@@ -70,11 +70,11 @@ body {
 }
 
 .espacio{
-    padding: 20px;
+    padding: 10px;
 }
 
 .espacio1{
-    margin: 10px;
+    margin: 5px;
 }
 
 /*Fuentes*/
@@ -89,7 +89,6 @@ body {
 .vida {
     width: 45px;
     height: 45px;
-
     margin: 5px;
     margin: 10px;
 }
