@@ -103,7 +103,7 @@ function shootBullet(playerId) {
         } else {
             bullet.style.top = `${bulletTop - 10}px`; // Velocidad de la bala
         }
-    }, 30); // Intervalo de movimiento
+    }, 30); // Intervalo de   movimiento
 }
 
 
