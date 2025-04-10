@@ -54,9 +54,6 @@ function moverEnemigos() {
 moverEnemigos();
 
 
-
-
-
 // Objeto para rastrear las teclas presionadas
 const keysPressed = {};
 const keysFired = {}; // Objeto para rastrear si ya se disparó con una tecla

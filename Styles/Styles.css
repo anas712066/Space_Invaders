@@ -34,6 +34,9 @@ body {
     overflow: hidden;   /* evita que se salgan visualmente */
 }
 
+.mh-height {
+    min-height: 50px;
+}
 
 .enemy {
     margin: 5px;
