@@ -3,30 +3,26 @@
 let killsp1 = 0;
 let killsp2 = 0;
 
-document.querySelector("#killsPlayer1").innerHTML = killsp1;
-document.querySelector("#killsPlayer2").innerHTML = killsp2;
-
-// Sumar kills player1
-function sumarKillP1(){
-    killsp2 += 1;
-    document.querySelector("#killsPlayer1").innerHTML = killsp1;
+// Sumar kills para el jugador 1
+function sumarKillP1() {
+    killsp1 += 1; // Incrementar las kills del jugador 1
+    document.querySelector("#killsPlayer1").innerHTML = killsp1; // Actualizar el DOM
 }
 
-// Sumar kills player2
+// Sumar kills para el jugador 2
 function sumarKillP2() {
-    killsp1 += 1;
-    document.querySelector("#killsPlayer2").innerHTML = killsp2;
+    killsp2 += 1; // Incrementar las kills del jugador 2
+    document.querySelector("#killsPlayer2").innerHTML = killsp2; // Actualizar el DOM
 }
 
 function OnEnemyDestroyed(playerId) {
-    //Auenmtar el puntaje del jugador correspondiente
+    // Incrementar el puntaje del jugador correspondiente
     if (playerId === "character1") {
         sumarKillP1();
     } else if (playerId === "character2") {
         sumarKillP2();
     }
 }
-
 
 // Objeto para rastrear las teclas presionadas
 const keysPressed = {};
@@ -73,6 +69,9 @@ function shootBullet(playerId) {
     bullet.style.width = "10px";
     bullet.style.height = "20px";
 
+    // Agregar un atributo para identificar al jugador que disparó
+    bullet.dataset.playerId = playerId;
+
     // Posicionar la bala en el centro del jugador
     const playerRect = player.getBoundingClientRect();
     bullet.style.left = `${playerRect.left + playerRect.width / 2 - 5}px`;
@@ -101,6 +100,9 @@ function shootBullet(playerId) {
                 bullet.remove();
                 enemy.remove();
                 clearInterval(bulletInterval);
+
+                // Incrementar las kills del jugador que disparó
+                OnEnemyDestroyed(bullet.dataset.playerId);
             }
         });
 
@@ -111,8 +113,9 @@ function shootBullet(playerId) {
         } else {
             bullet.style.top = `${bulletTop - 10}px`; // Velocidad de la bala
         }
-    }, 30); // Intervalo de   movimiento
+    }, 30); // Intervalo de movimiento
 }
+
 
 
 function enemyShoot(enemy) {
