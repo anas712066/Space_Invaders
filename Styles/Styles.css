@@ -74,7 +74,6 @@ body {
 }
 
 .espacio1{
-<<<<<<< HEAD
     margin: 10px;
 }
 
@@ -90,7 +89,7 @@ body {
 .vida {
     width: 45px;
     height: 45px;
-=======
->>>>>>> 0cc498e5df435908ad027f34fd86f4f415c1d686
+
     margin: 5px;
+    margin: 10px;
 }
