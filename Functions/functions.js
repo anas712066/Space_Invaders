@@ -27,6 +27,35 @@ function OnEnemyDestroyed(playerId) {
     }
 }
 
+let enemyOffset = 0;
+let enemyDirection = 1;
+let enemyMaxOffset = 50; // se moverán ±50px del centro
+let enemySpeed = 1;
+
+function moverEnemigos() {
+    enemyOffset += enemyDirection * enemySpeed;
+
+    if (enemyOffset >= enemyMaxOffset || enemyOffset <= -enemyMaxOffset) {
+        enemyDirection *= -1;
+    }
+
+    const filas = document.querySelectorAll(".mh-enemigos");
+
+    filas.forEach(fila => {
+        const enemigos = fila.querySelectorAll(".enemy");
+        enemigos.forEach(enemy => {
+            enemy.style.transform = `translateX(${enemyOffset}px)`;
+        });
+    });
+
+    requestAnimationFrame(moverEnemigos);
+}
+
+moverEnemigos();
+
+
+
+
 
 // Objeto para rastrear las teclas presionadas
 const keysPressed = {};
@@ -113,6 +142,7 @@ function shootBullet(playerId) {
         }
     }, 30); // Intervalo de   movimiento
 }
+
 
 
 function enemyShoot(enemy) {

@@ -28,13 +28,17 @@ body {
 }
 
 .mh-enemigos {
-    min-height: 80px;
-    
+    display: flex;
+    justify-content: center;
+    position: relative; /* importante para que el movimiento se aplique bien */
+    overflow: hidden;   /* evita que se salgan visualmente */
 }
 
+
 .enemy {
-    margin: 100px;
+    margin: 5px;
 }
+
 .enemy-bullet {
     z-index: 10;
     position: absolute;
