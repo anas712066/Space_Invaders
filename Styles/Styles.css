@@ -21,16 +21,29 @@ body {
 
 .fondo {
     text-align: center;
-    margin-top: 150px;
 }
 
+.espacio3 {
+    min-height: 255px;
+}
+
+.mh-enemigos {
+    min-height: 90px;
+    
+}
+
+
+
+.enemy {
+    margin: 100px;
+}
 .enemy-bullet {
     z-index: 10;
     position: absolute;
 }
 
 .col {
-    border: 1px solid black;
+    border: 1px solid white;
     padding: 10px;
 }
 
@@ -47,15 +60,15 @@ body {
 .player1{
     position: absolute; 
     left: 20%; 
-    top: 50%; 
-    transform: translateY(-50%);
+    bottom: 10%;
+    transform: translateY(0);
 }
 
 .player2{
     position: absolute; 
     left: 80%; 
-    top: 50%; 
-    transform: translateY(-50%);
+    bottom: 10%;
+    transform: translateY(0);
 }
 
 .espacio{
@@ -63,5 +76,5 @@ body {
 }
 
 .espacio1{
-    margin: 10px;
+    margin: 5px;
 }
