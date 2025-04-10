@@ -106,6 +106,7 @@ function shootBullet(playerId) {
     }, 30); // Intervalo de movimiento
 }
 
+
 function enemyShoot(enemy) {
     // Crear la bala como un elemento <img>
     const bullet = document.createElement("img");
