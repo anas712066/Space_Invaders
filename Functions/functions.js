@@ -158,6 +158,7 @@ function enemyShoot(enemy) {
     }, 30); // Intervalo de movimiento
 }
 
+
 // Función para que los enemigos disparen aleatoriamente
 function startEnemyShooting() {
     const enemies = document.querySelectorAll(".enemy"); // Selecciona todos los enemigos
