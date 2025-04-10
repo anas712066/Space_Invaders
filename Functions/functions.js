@@ -111,8 +111,9 @@ function shootBullet(playerId) {
         } else {
             bullet.style.top = `${bulletTop - 10}px`; // Velocidad de la bala
         }
-    }, 30); // Intervalo de movimiento
+    }, 30); // Intervalo de   movimiento
 }
+
 
 function enemyShoot(enemy) {
     // Crear la bala como un elemento <img>
@@ -152,6 +153,7 @@ function enemyShoot(enemy) {
         }
     }, 30); // Intervalo de movimiento
 }
+
 
 // Función para que los enemigos disparen aleatoriamente
 function startEnemyShooting() {
