@@ -49,7 +49,7 @@ document.addEventListener("keydown", (event) => {
 
 // Evento para registrar cuando una tecla es soltada
 document.addEventListener("keyup", (event) => {
-    keysPressed[event.key] = false; // Marca la tecla como no presionada
+    keysPressed[event.key] = false; // Marca la   tecla como no presionada
     keysFired[event.key] = false; // Permite disparar nuevamente cuando se suelte la tecla
 });
 
