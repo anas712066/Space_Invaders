@@ -52,10 +52,6 @@ document.addEventListener("keyup", (event) => {
     keysPressed[event.key] = false; // Marca la tecla como no presionada
     keysFired[event.key] = false; // Permite disparar nuevamente cuando se suelte la tecla
 });
-// Evento para registrar cuando una tecla es soltada
-document.addEventListener("keyup", (event) => {
-    keysPressed[event.key] = false; // Marca la tecla como no presionada
-});
 
 // Función para disparar una bala
 function shootBullet(playerId) {
