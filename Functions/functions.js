@@ -1,11 +1,10 @@
-//Moviment Player1
-const player1 = document.getElementById("player1") ;
-let position = 0;
-
 
 // Contador eliminaciones
 let killsp1 = 0;
 let killsp2 = 0;
+
+document.querySelector("#killsPlayer1").innerHTML = killsp1;
+document.querySelector("#killsPlayer2").innerHTML = killsp2;
 
 // Sumar kills player1
 function sumarKillP1(){
@@ -17,6 +16,15 @@ function sumarKillP1(){
 function sumarKillP2() {
     killsp1 += 1;
     document.querySelector("#killsPlayer2").innerHTML = killsp2;
+}
+
+function OnEnemyDestroyed(playerId) {
+    //Auenmtar el puntaje del jugador correspondiente
+    if (playerId === "character1") {
+        sumarKillP1();
+    } else if (playerId === "character2") {
+        sumarKillP2();
+    }
 }
 
 
@@ -133,19 +141,7 @@ function enemyShoot(enemy) {
         players.forEach((player) => {
             const playerRect = player.getBoundingClientRect();
             const bulletRect = bullet.getBoundingClientRect();
-
-            if (
-                bulletRect.left < playerRect.right &&
-                bulletRect.right > playerRect.left &&
-                bulletRect.top < playerRect.bottom &&
-                bulletRect.bottom > playerRect.top
-            ) {
-                // Colisión detectada: eliminar la bala y reducir vida del jugador
-                bullet.remove();
-                clearInterval(bulletInterval);
-                console.log(`${player.id} ha sido golpeado!`);
-                // Aquí puedes implementar lógica para reducir la vida del jugador
-            }
+                detectarColisionConBala(player, bullet); // Llama a la función de detección de colisión
         });
 
         // Si la bala sale de la pantalla, eliminarla
@@ -225,3 +221,64 @@ function movePlayers() {
 
 // Inicia el bucle de movimiento
 movePlayers();
+
+
+//PlayerLives
+let player1Lives = 3;
+let player2Lives = 3;
+
+// Función para actualizar las imágenes de las vidas
+function actualizarVidas(jugadorId, vidasRestantes) {
+    const contenedorVidas = document.getElementById(jugadorId);
+    const corazones = contenedorVidas.querySelectorAll(".vida");
+
+    corazones.forEach((corazon, index) => {
+        if (index < vidasRestantes) {
+            corazon.src = "Images/PlayerLives/heart1.png"; // Corazón lleno
+        } else {
+            corazon.src = "Images/PlayerLives/heart2.png"; // Corazón vacío
+        }
+    });
+}
+
+// Función para manejar la pérdida de vida
+function perderVida(jugador) {
+    if (jugador.id === "character1") {
+        player1Lives--;
+        console.log(`Player 1 Lives: ${player1Lives}`);
+        actualizarVidas("player1Lives", player1Lives);
+
+        if (player1Lives <= 0) {
+            console.log("Player 1 ha perdido!");
+            // Aquí puedes implementar lógica para finalizar el juego
+        }
+    } else if (jugador.id === "character2") {
+        player2Lives--;
+        console.log(`Player 2 Lives: ${player2Lives}`);
+        actualizarVidas("player2Lives", player2Lives);
+
+        if (player2Lives <= 0) {
+            console.log("Player 2 ha perdido!");
+            // Aquí puedes implementar lógica para finalizar el juego
+        }
+    }
+}
+
+// Ejemplo de integración con colisión
+function detectarColisionConBala(jugador, bala) {
+    const jugadorRect = jugador.getBoundingClientRect();
+    const balaRect = bala.getBoundingClientRect();
+
+    if (
+        jugadorRect.left < balaRect.right &&
+        jugadorRect.right > balaRect.left &&
+        jugadorRect.top < balaRect.bottom &&
+        jugadorRect.bottom > balaRect.top
+    ) {
+        // Reducir la vida del jugador
+        perderVida(jugador);
+
+        // Eliminar la bala del juego
+        bala.remove();
+    }
+}
