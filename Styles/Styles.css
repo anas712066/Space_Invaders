@@ -65,3 +65,18 @@ body {
 .espacio1{
     margin: 10px;
 }
+
+/*Fuentes*/
+.eliminaciones{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+}
+
+/*Vida*/
+.vida {
+    width: 45px;
+    height: 45px;
+    margin: 5px;
+}
