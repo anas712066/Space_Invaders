@@ -6,6 +6,7 @@
     <link rel="icon" href="Images/ficha.png" type="image/x-icon">
     <link rel="stylesheet" href="menu/menu.css">
     <link rel="shortcut icon" href="Images/InvaderIco.ico" />
+    <audio id="audioFondo" src="Sonidos/BackgroundMusic.mp3" hidden loop></audio>
     <title>Inicio</title>
 </head>
 <body>
@@ -16,7 +17,12 @@
         <br>
         <br>
         <a href="instrucciones.html"><button class="screen_btn btn-start" id="start-button">Instrucciones</button></a>
+        <br>
+        <br>
+    <button class="screen_btn btn-start" id="audioToggle">🔇</button>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="Functions/functions.js"></script>
+    <script src="Sonidos/sonido.js"></script> 
 </body>
 </html>

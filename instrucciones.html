@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="Styles/Styles.css">
     <link rel="shortcut icon" href="Images/InvaderIco.ico" />
+    <audio id="audioFondo" src="Sonidos/BackgroundMusic.mp3" hidden loop></audio>
     <title>Instrucciones</title>
 </head>
 <body>
@@ -74,13 +75,19 @@
             <div class="col">
                 
             </div>
-            <div class="col"></div>
+            <div class="col">
+                <button class="screen_btn btn-start" id="audioToggle">🔇</button>
+            </div>
+            <div class="col">
+                
+            </div>
             <div class="col">
                 <a href="maingame.html"><button class="screen_btn btn-start" id="start-button">Jugar</button></a>
             </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="Functions/functions.js"></script> 
+    <script src="Functions/functions.js"></script>
+    <script src="Sonidos/sonido.js"></script> 
 </body>
 </html>
