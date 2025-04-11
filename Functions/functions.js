@@ -177,6 +177,8 @@ function shootBullet(playerId) {
                 bulletRect.top < enemyRect.bottom &&
                 bulletRect.bottom > enemyRect.top
             ) {
+
+                crearExplosion(enemy);
                 // Colisión detectada: eliminar la bala y el enemigo
                 bullet.remove();
                 enemy.remove();
@@ -195,6 +197,28 @@ function shootBullet(playerId) {
             bullet.style.top = `${bulletTop - 10}px`; // Velocidad de la bala
         }
     }, 30); // Intervalo de movimiento
+}
+
+function crearExplosion(enemigo) {
+    const explosion = document.createElement("img");
+    explosion.src = "Images/Explosion/enemy_explosion.gif"; // Asegúrate que la ruta sea correcta
+    explosion.className = "explosion";
+    explosion.style.position = "absolute";
+    explosion.style.width = "50px";
+    explosion.style.height = "50px";
+    explosion.style.zIndex = "99";
+    explosion.style.pointerEvents = "none";
+
+    const enemyRect = enemigo.getBoundingClientRect();
+
+    explosion.style.left = `${enemyRect.left + window.scrollX}px`;
+    explosion.style.top = `${enemyRect.top + window.scrollY}px`;
+
+    document.body.appendChild(explosion);
+
+    setTimeout(() => {
+        explosion.remove();
+    }, 500); // Ajusta según la duración del gif
 }
 
 // Función para que los enemigos disparen

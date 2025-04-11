@@ -27,6 +27,11 @@ body {
     min-height: 160px;
 }
 
+.explosion {
+    z-index: 99;
+    pointer-events: none;
+}
+
 .mh-enemigos {
     display: flex;
     justify-content: center;
