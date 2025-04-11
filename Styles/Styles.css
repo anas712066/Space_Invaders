@@ -1,3 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+    --font: "Press Start 2P", serif;
+    --black: #0c0c0c;
+    --gray: #222;
+    --white: #fff;
+    --neon-green: #00FF00;
+    --neon-pink: #FF00FF;
+    --red: #ff1b1b;
+}
+
+.screen_btn {
+    background: var(--neon-pink);
+    border: 3px solid var(--neon-green);
+    color: var(--neon-green);
+    text-decoration: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    text-shadow: 2px 2px 0px var(--red);
+    box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.5);
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+}
+
+.screen_btn:hover {
+    background-color: var(--neon-green);
+    color: var(--neon-pink);
+    transform: scale(1.1);
+}
+
+.btn-start {
+    font-size: 1.5em;
+    padding: 2px 15px;
+}
+
+
 /* Evita el scroll en la pantalla */
 body {
     overflow: hidden; /* Oculta las barras de desplazamiento */

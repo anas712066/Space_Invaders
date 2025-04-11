@@ -35,7 +35,7 @@ function OnEnemyDestroyed(playerId) {
 
 let enemyOffset = 0;
 let enemyDirection = 1;
-let enemyMaxOffset = 360; // se moverán ±50px del centro
+let enemyMaxOffset = 295; // se moverán ±50px del centro
 let enemySpeed = 1;
 
 function moverEnemigos() {
@@ -204,8 +204,8 @@ function crearExplosion(enemigo) {
     explosion.src = "Images/Explosion/enemy_explosion.gif"; // Asegúrate que la ruta sea correcta
     explosion.className = "explosion";
     explosion.style.position = "absolute";
-    explosion.style.width = "50px";
-    explosion.style.height = "50px";
+    explosion.style.width = "80px";
+    explosion.style.height = "80px";
     explosion.style.zIndex = "99";
     explosion.style.pointerEvents = "none";
 
