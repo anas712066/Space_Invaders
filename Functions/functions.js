@@ -92,6 +92,50 @@ document.addEventListener("keyup", (event) => {
     keysFired[event.key] = false; // Permite disparar nuevamente cuando se suelte la tecla
 });
 
+function eliminarEnemigo(index) {
+    const slot = document.querySelector(`.enemy-slot[data-index="${index}"]`);
+    const img = slot?.querySelector('img');
+    if (img) img.remove();
+  }
+  
+  function revivirEnemigo(index) {
+    const slot = document.querySelector(`.enemy-slot[data-index="${index}"]`);
+    if (slot && !slot.querySelector('img')) {
+      const img = document.createElement('img');
+      img.className = 'enemy';
+      img.src = 'Images/InvadersImages/invaders1.gif';
+      img.alt = 'invaders';
+      slot.appendChild(img);
+    }
+  }
+
+  function respawnEnemy() {
+    // Obtener todos los slots vacíos
+    const emptySlots = Array.from(document.querySelectorAll(".enemy-slot"))
+        .filter(slot => !slot.querySelector("img"));
+
+    if (emptySlots.length === 0) return; // Nada que hacer si están todos ocupados
+
+    // Elegir un slot vacío al azar
+    const randomIndex = Math.floor(Math.random() * emptySlots.length);
+    const randomSlot = emptySlots[randomIndex];
+
+    // Crear nuevo enemigo
+    const newEnemy = document.createElement("img");
+    newEnemy.src = "Images/InvadersImages/invaders1.gif";
+    newEnemy.alt = "invaders";
+    newEnemy.className = "sperate-gif enemy";
+    newEnemy.width = 30;
+    newEnemy.height = 25;
+
+    // Insertarlo en el slot aleatorio
+    randomSlot.appendChild(newEnemy);
+}
+
+// Llamarlo cada cierto tiempo
+setInterval(respawnEnemy, 1200); // Cada 1.2 segundos revive uno aleatorio
+  
+
 // Función para disparar una bala
 function shootBullet(playerId) {
     if (gameOver) return; // Detener disparos si el juego ha terminado
@@ -283,33 +327,6 @@ function actualizarVidas(jugadorId, vidasRestantes) {
             corazon.src = "Images/PlayerLives/heart2.png"; // Corazón vacío
         }
     });
-}
-
-// Función para manejar la pérdida de vida
-function perderVida(jugador) {
-    if (jugador.id === "character1") {
-        player1Lives--;
-        console.log(`Player 1 Lives: ${player1Lives}`);
-        actualizarVidas("player1Lives", player1Lives);
-
-        if (player1Lives <= 0) {
-            console.log("Player 1 ha perdido!");
-            mostrarExplosion(jugador); // Mostrar explosión en la posición del jugador
-            jugador.remove(); // Eliminar al jugador del DOM
-            mostrarGameOver("PLAYER 2 WIN");
-        }
-    } else if (jugador.id === "character2") {
-        player2Lives--;
-        console.log(`Player 2 Lives: ${player2Lives}`);
-        actualizarVidas("player2Lives", player2Lives);
-
-        if (player2Lives <= 0) {
-            console.log("Player 2 ha perdido!");
-            mostrarExplosion(jugador); // Mostrar explosión en la posición del jugador
-            jugador.remove(); // Eliminar al jugador del DOM
-            mostrarGameOver("PLAYER 1 WIN");
-        }
-    }
 }
 
 // Ejemplo de integración con colisión
