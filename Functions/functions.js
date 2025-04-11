@@ -35,7 +35,7 @@ function OnEnemyDestroyed(playerId) {
 
 let enemyOffset = 0;
 let enemyDirection = 1;
-let enemyMaxOffset = 350; // se moverán ±50px del centro
+let enemyMaxOffset = 360; // se moverán ±50px del centro
 let enemySpeed = 1;
 
 function moverEnemigos() {
@@ -133,7 +133,7 @@ function eliminarEnemigo(index) {
 }
 
 // Llamarlo cada cierto tiempo
-setInterval(respawnEnemy, 1900); // Cada 1.2 segundos revive uno aleatorio
+setInterval(respawnEnemy, 1500); // Cada 1.2 segundos revive uno aleatorio
   
 
 // Función para disparar una bala
