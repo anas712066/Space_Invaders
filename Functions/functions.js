@@ -13,6 +13,8 @@ function sumarKillP1() {
     }
 }
 
+
+
 // Sumar kills para el jugador 2
 function sumarKillP2() {
     killsp2 += 2; // Incrementar las kills del jugador 2
