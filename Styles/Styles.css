@@ -111,8 +111,8 @@ body {
 
 /*Vida*/
 .vida {
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
     margin: 5px;
     margin: 10px;
 }
@@ -130,3 +130,8 @@ body {
         opacity: 1;
     }
 }
+
+#espacioMaximo {
+    overflow: visible;
+}
+

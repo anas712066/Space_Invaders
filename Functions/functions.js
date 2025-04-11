@@ -268,8 +268,8 @@ function movePlayers() {
 }
 
 //PlayerLives
-let player1Lives = 3;
-let player2Lives = 3;
+let player1Lives = 5;
+let player2Lives = 5;
 
 // Función para actualizar las imágenes de las vidas
 function actualizarVidas(jugadorId, vidasRestantes) {
@@ -438,7 +438,6 @@ function perderVida(jugador) {
 
         if (player1Lives <= 0) {
             console.log("Player 1 ha perdido!");
-            mostrarExplosion(jugador); // Mostrar explosión en la posición del jugador
             jugador.remove(); // Eliminar al jugador del DOM
             mostrarGameOver("PLAYER 2 WIN");
         }
@@ -449,42 +448,13 @@ function perderVida(jugador) {
 
         if (player2Lives <= 0) {
             console.log("Player 2 ha perdido!");
-            mostrarExplosion(jugador); // Mostrar explosión en la posición del jugador
             jugador.remove(); // Eliminar al jugador del DOM
             mostrarGameOver("PLAYER 1 WIN");
         }
     }
 }
 
-// Función para mostrar una explosión en la posición del jugador
-function mostrarExplosion(jugador) {
-    console.log("Mostrando explosión para:", jugador.id);
-    const explosion = document.createElement("img");
-    explosion.src = "Images/Explosion/ufoExplosion.png"; // Ruta de la imagen de la explosión
-    explosion.style.position = "absolute";
-    explosion.style.width = "150px"; // Ajusta el tamaño de la explosión
-    explosion.style.height = "150px";
 
-    const jugadorRect = jugador.getBoundingClientRect();
-    console.log("Posición del jugador:", jugadorRect);
-
-    explosion.style.left = `${jugadorRect.left}px`;
-    explosion.style.top = `${jugadorRect.top}px`;
-
-    const container = document.getElementById("espacioMaximo");
-    if (!container) {
-        console.error("No se encontró el contenedor 'espacioMaximo'");
-        return;
-    }
-
-    container.appendChild(explosion);
-    console.log("Explosión agregada al contenedor.");
-
-    setTimeout(() => {
-        explosion.remove();
-        console.log("Explosión eliminada.");
-    }, 1000); // La explosión desaparece después de 1 segundo
-}
 
 document.addEventListener("DOMContentLoaded", () => {
     movePlayers(); // Inicia el bucle de movimiento después de que el DOM esté cargado
