@@ -105,7 +105,7 @@ body {
 }
 
 .col {
-    border: 1px solid white;
+    border: 1px solid rgba(255, 255, 255, 0);
     padding: 10px;
 }
 
@@ -121,6 +121,9 @@ body {
     border-bottom: 1px solid rgb(0, 255, 64);
 }
 
+.borde-left {
+    border-left: 1px solid rgb(0, 255, 64);
+}
 
 .sperate-gif {
     margin: 10px;
@@ -156,6 +159,10 @@ body {
 
 .espacio_arriba{
     margin-top: 20px;
+}
+
+.espacio_instrucciones {
+    margin-top: 100px;
 }
 
 /*Fuentes*/
