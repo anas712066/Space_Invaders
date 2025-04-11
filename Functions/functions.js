@@ -479,8 +479,11 @@ function perderVida(jugador) {
 
         if (player1Lives <= 0) {
             console.log("Player 1 ha perdido!");
-            jugador.remove(); // Eliminar al jugador del DOM
-            mostrarGameOver("PLAYER 2 WIN");
+            mostrarExplosion(jugador); // Mostrar imagen de pérdida
+            setTimeout(() => {
+                jugador.remove(); // Eliminar al jugador del DOM después de 2 segundos
+                mostrarGameOver("PLAYER 2 WIN");
+            }, 10);
         }
     } else if (jugador.id === "character2") {
         player2Lives--;
@@ -489,10 +492,36 @@ function perderVida(jugador) {
 
         if (player2Lives <= 0) {
             console.log("Player 2 ha perdido!");
-            jugador.remove(); // Eliminar al jugador del DOM
-            mostrarGameOver("PLAYER 1 WIN");
+            mostrarExplosion(jugador); // Mostrar imagen de pérdida
+            setTimeout(() => {
+                jugador.remove(); // Eliminar al jugador del DOM después de 2 segundos
+                mostrarGameOver("PLAYER 1 WIN");
+            }, 10);
         }
     }
+}
+
+// Función para mostrar una imagen en la posición del jugador eliminado
+function mostrarExplosion(jugador) {
+    // Obtener las coordenadas del jugador
+    const jugadorRect = jugador.getBoundingClientRect();
+
+    // Crear la imagen
+    const imagen = document.createElement("img");
+    imagen.src = "Images/Explosion/explosion_player.gif"; // Ruta de la imagen
+    imagen.style.position = "absolute";
+    imagen.style.width = "120px"; // Ajusta el tamaño de la imagen
+    imagen.style.left = `${jugadorRect.left + jugadorRect.width / 2 - 60}px`; // Centrado horizontalmente
+    imagen.style.top = `${jugadorRect.top + jugadorRect.height / 2 - 60}px`; // Centrado verticalmente
+    imagen.style.zIndex = "1000"; // Asegura que esté por encima de otros elementos
+
+    // Agregar la imagen al body
+    document.body.appendChild(imagen);
+
+    // Eliminar la imagen después de 2 segundos
+    setTimeout(() => {
+        imagen.remove();
+    }, 2000);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
