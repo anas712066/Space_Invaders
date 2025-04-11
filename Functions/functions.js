@@ -35,7 +35,7 @@ function OnEnemyDestroyed(playerId) {
 
 let enemyOffset = 0;
 let enemyDirection = 1;
-let enemyMaxOffset = 295; // se moverán ±50px del centro
+let enemyMaxOffset = 295; // se moverán ±295px del centro
 let enemySpeed = 1;
 
 function moverEnemigos() {
@@ -114,7 +114,7 @@ function eliminarEnemigo(index) {
     const emptySlots = Array.from(document.querySelectorAll(".enemy-slot"))
         .filter(slot => !slot.querySelector("img"));
 
-    if (emptySlots.length === 0) return; // Nada que hacer si están todos ocupados
+    if (emptySlots.length === 0) return;
 
     // Elegir un slot vacío al azar
     const randomIndex = Math.floor(Math.random() * emptySlots.length);
@@ -133,7 +133,7 @@ function eliminarEnemigo(index) {
 }
 
 // Llamarlo cada cierto tiempo
-setInterval(respawnEnemy, 1500); // Cada 1.2 segundos revive uno aleatorio
+setInterval(respawnEnemy, 1500); // Cada cierto segundos revive uno aleatorio
   
 
 // Función para disparar una bala
