@@ -24,7 +24,7 @@ body {
 }
 
 .espacio3 {
-    min-height: 255px;
+    min-height: 180px;
 }
 
 .mh-enemigos {
@@ -32,14 +32,30 @@ body {
     justify-content: center;
     position: relative; /* importante para que el movimiento se aplique bien */
     overflow: hidden;   /* evita que se salgan visualmente */
+    min-height: 80px;
 }
 
-.mh-height {
-    min-height: 50px;
+.enemy-slot {
+    display: inline-block;
+    width: 40px; /* espacio del slot */
+    height: 40px;
+    margin: 10px; /* espacio entre enemigos */
+    vertical-align: middle;
+    position: relative;
+  }
+
+/* Estilo para el marcador de espacio vacío */
+.enemy-placeholder {
+    display: inline-block;
+    background-color: transparent; /* Mantener el fondo transparente */
+    margin: 5px;
 }
 
 .enemy {
-    margin: 5px;
+    width: 30px;
+    height: 25px;
+    display: block;
+    margin: auto; /* centrar dentro del slot */
 }
 
 .enemy-bullet {
@@ -113,7 +129,6 @@ body {
 .vida {
     width: 35px;
     height: 35px;
-    margin: 5px;
     margin: 10px;
 }
 
