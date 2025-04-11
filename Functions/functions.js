@@ -6,12 +6,22 @@ let killsp2 = 0;
 function sumarKillP1() {
     killsp1 += 1; // Incrementar las kills del jugador 1
     document.querySelector("#killsPlayer1").innerHTML = killsp1; // Actualizar el DOM
+
+    // Verificar si el jugador 1 ha alcanzado 10 puntos
+    if (killsp1 === 10) {
+        mostrarWinner("PLAYER 1 WINNER!");
+    }
 }
 
 // Sumar kills para el jugador 2
 function sumarKillP2() {
     killsp2 += 1; // Incrementar las kills del jugador 2
     document.querySelector("#killsPlayer2").innerHTML = killsp2; // Actualizar el DOM
+
+    // Verificar si el jugador 2 ha alcanzado 10 puntos
+    if (killsp2 === 10) {
+        mostrarWinner("PLAYER 2 WINNER!");
+    }
 }
 
 function OnEnemyDestroyed(playerId) {
@@ -342,6 +352,54 @@ function mostrarGameOver(mensaje) {
 
     // Agregar el contenedor al body
     document.body.appendChild(gameOverContainer);
+}
+
+// Funcion mostrar ganador
+function mostrarWinner(mensaje) {
+    gameOver = true; // Detener todas las acciones del juego
+
+    // Crear el contenedor del cuadro
+    const winnerContainer = document.createElement("div");
+    winnerContainer.id = "winnerContainer";
+    winnerContainer.style.position = "fixed";
+    winnerContainer.style.top = "50%";
+    winnerContainer.style.left = "50%";
+    winnerContainer.style.transform = "translate(-50%, -50%)";
+    winnerContainer.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+    winnerContainer.style.color = "white";
+    winnerContainer.style.padding = "50px";
+    winnerContainer.style.textAlign = "center";
+    winnerContainer.style.border = "3px solid white";
+    winnerContainer.style.borderRadius = "10px";
+    winnerContainer.style.zIndex = "1000";
+
+    // Agregar el mensaje de "WINNER"
+    const winnerText = document.createElement("h1");
+    winnerText.textContent = "WINNER!";
+    winnerText.style.fontFamily = "'Press Start 2P', cursive";
+    winnerText.style.marginBottom = "20px";
+
+    // Agregar el mensaje del ganador
+    const playerText = document.createElement("p");
+    playerText.textContent = mensaje;
+    playerText.style.fontFamily = "'Press Start 2P', cursive";
+    playerText.style.fontSize = "20px";
+    playerText.style.marginBottom = "20px";
+
+    // Agregar el mensaje para reiniciar la partida
+    const restartText = document.createElement("p");
+    restartText.textContent = "Pulsa F5 para reiniciar la partida";
+    restartText.style.fontFamily = "'Press Start 2P', cursive";
+    restartText.style.fontSize = "16px";
+    restartText.style.color = "lightgray";
+
+    // Agregar los elementos al contenedor
+    winnerContainer.appendChild(winnerText);
+    winnerContainer.appendChild(playerText);
+    winnerContainer.appendChild(restartText);
+
+    // Agregar el contenedor al body
+    document.body.appendChild(winnerContainer);
 }
 
 // Función para manejar la pérdida de vida
