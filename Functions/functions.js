@@ -8,7 +8,7 @@ function sumarKillP1() {
     document.querySelector("#killsPlayer1").innerHTML = killsp1; // Actualizar el DOM
 
     // Verificar si el jugador 1 ha alcanzado 10 puntos
-    if (killsp1 === 10) {
+    if (killsp1 === 100) {
         mostrarWinner("PLAYER 1 WINNER!");
     }
 }
@@ -19,7 +19,7 @@ function sumarKillP2() {
     document.querySelector("#killsPlayer2").innerHTML = killsp2; // Actualizar el DOM
 
     // Verificar si el jugador 2 ha alcanzado 10 puntos
-    if (killsp2 === 10) {
+    if (killsp2 === 100) {
         mostrarWinner("PLAYER 2 WINNER!");
     }
 }
