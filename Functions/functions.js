@@ -459,7 +459,7 @@ function perderVida(jugador) {
             setTimeout(() => {
                 jugador.remove(); // Eliminar al jugador del DOM después de 2 segundos
                 mostrarGameOver("PLAYER 2 WIN");
-            }, 2000);
+            }, 10);
         }
     } else if (jugador.id === "character2") {
         player2Lives--;
@@ -472,7 +472,7 @@ function perderVida(jugador) {
             setTimeout(() => {
                 jugador.remove(); // Eliminar al jugador del DOM después de 2 segundos
                 mostrarGameOver("PLAYER 1 WIN");
-            }, 2000);
+            }, 10);
         }
     }
 }
@@ -484,7 +484,7 @@ function mostrarExplosion(jugador) {
 
     // Crear la imagen
     const imagen = document.createElement("img");
-    imagen.src = "Images/Explosion/invaderExplosion.png"; // Ruta de la imagen
+    imagen.src = "Images/Explosion/explosion_player.gif"; // Ruta de la imagen
     imagen.style.position = "absolute";
     imagen.style.width = "120px"; // Ajusta el tamaño de la imagen
     imagen.style.left = `${jugadorRect.left}px`;
