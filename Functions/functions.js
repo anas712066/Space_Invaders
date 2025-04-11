@@ -487,8 +487,8 @@ function mostrarExplosion(jugador) {
     imagen.src = "Images/Explosion/explosion_player.gif"; // Ruta de la imagen
     imagen.style.position = "absolute";
     imagen.style.width = "120px"; // Ajusta el tamaño de la imagen
-    imagen.style.left = `${jugadorRect.left}px`;
-    imagen.style.top = `${jugadorRect.top}px`;
+    imagen.style.left = `${jugadorRect.left + jugadorRect.width / 2 - 60}px`; // Centrado horizontalmente
+    imagen.style.top = `${jugadorRect.top + jugadorRect.height / 2 - 60}px`; // Centrado verticalmente
     imagen.style.zIndex = "1000"; // Asegura que esté por encima de otros elementos
 
     // Agregar la imagen al body
