@@ -454,8 +454,6 @@ function perderVida(jugador) {
     }
 }
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
     movePlayers(); // Inicia el bucle de movimiento después de que el DOM esté cargado
 });
