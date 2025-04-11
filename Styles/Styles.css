@@ -69,6 +69,7 @@ body {
     transform: translateY(0);
 }
 
+/*Espacios*/
 .espacio{
     padding: 10px;
 }
@@ -91,4 +92,18 @@ body {
     height: 45px;
     margin: 5px;
     margin: 10px;
+}
+
+/*Cuadro GAME OVER*/
+#gameOverContainer {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

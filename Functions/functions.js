@@ -1,4 +1,3 @@
-
 // Contador eliminaciones
 let killsp1 = 0;
 let killsp2 = 0;
@@ -53,12 +52,14 @@ document.addEventListener("keydown", (event) => {
 
 // Evento para registrar cuando una tecla es soltada
 document.addEventListener("keyup", (event) => {
-    keysPressed[event.key] = false; // Marca la   tecla como no presionada
+    keysPressed[event.key] = false; // Marca la tecla como no presionada
     keysFired[event.key] = false; // Permite disparar nuevamente cuando se suelte la tecla
 });
 
 // Función para disparar una bala
 function shootBullet(playerId) {
+    if (gameOver) return; // Detener disparos si el juego ha terminado
+
     const player = document.getElementById(playerId);
 
     // Crear la bala como un elemento <img>
@@ -116,47 +117,42 @@ function shootBullet(playerId) {
     }, 30); // Intervalo de movimiento
 }
 
-
-
+// Función para que los enemigos disparen
 function enemyShoot(enemy) {
-    // Crear la bala como un elemento <img>
+    if (gameOver) return; // Detener disparos si el juego ha terminado
+
     const bullet = document.createElement("img");
-    bullet.src = "Images/Projectiles/ProjectileA_1.png"; // Ruta de la imagen del proyectil enemigo
+    bullet.src = "Images/Projectiles/ProjectileA_1.png";
     bullet.className = "enemy-bullet";
     bullet.style.position = "absolute";
     bullet.style.width = "10px";
     bullet.style.height = "20px";
 
-    // Posicionar la bala en el centro del enemigo
     const enemyRect = enemy.getBoundingClientRect();
     bullet.style.left = `${enemyRect.left + enemyRect.width / 2 - 5}px`;
     bullet.style.top = `${enemyRect.bottom}px`;
 
-    // Agregar la bala al body
     document.body.appendChild(bullet);
 
-    // Mover la bala hacia abajo y detectar colisiones
     const bulletInterval = setInterval(() => {
         const bulletTop = parseInt(bullet.style.top);
 
-        // Detectar colisión con los jugadores
         const players = [document.getElementById("character1"), document.getElementById("character2")];
         players.forEach((player) => {
+            if (!player) return; // Verifica si el jugador aún existe
             const playerRect = player.getBoundingClientRect();
             const bulletRect = bullet.getBoundingClientRect();
-                detectarColisionConBala(player, bullet); // Llama a la función de detección de colisión
+            detectarColisionConBala(player, bullet);
         });
 
-        // Si la bala sale de la pantalla, eliminarla
         if (bulletTop >= window.innerHeight) {
             bullet.remove();
             clearInterval(bulletInterval);
         } else {
-            bullet.style.top = `${bulletTop + 10}px`; // Velocidad de la bala
+            bullet.style.top = `${bulletTop + 10}px`;
         }
-    }, 30); // Intervalo de movimiento
+    }, 30);
 }
-
 
 // Función para que los enemigos disparen aleatoriamente
 function startEnemyShooting() {
@@ -183,48 +179,56 @@ startEnemyShooting();
 
 // Función para mover a los jugadores
 function movePlayers() {
+    if (gameOver) return; // Detener el movimiento si el juego ha terminado
+
+    const movementSpeed = 4; // Velocidad de movimiento de los jugadores
+    const container = document.getElementById("espacioMaximo");
+    if (!container) {
+        console.error("El contenedor 'espacioMaximo' no existe.");
+        return;
+    }
+
     // Movimiento del jugador 1 (A y D)
     const character1 = document.getElementById("character1");
-    const container = document.getElementById("espacioMaximo");
-    const movementSpeed = 4;
-    const containerWidth = container.offsetWidth;
-    const character1Width = character1.offsetWidth;
-    let leftPosition1 = character1.offsetLeft;
+    if (character1) {
+        const containerWidth = container.offsetWidth;
+        const character1Width = character1.offsetWidth;
+        let leftPosition1 = character1.offsetLeft;
 
-    if (keysPressed["a"] || keysPressed["A"]) {
-        if (leftPosition1 - movementSpeed >= 0) {
-            character1.style.left = `${leftPosition1 - movementSpeed}px`;
+        if (keysPressed["a"] || keysPressed["A"]) {
+            if (leftPosition1 - movementSpeed >= 0) {
+                character1.style.left = `${leftPosition1 - movementSpeed}px`;
+            }
         }
-    }
-    if (keysPressed["d"] || keysPressed["D"]) {
-        if (leftPosition1 + movementSpeed + character1Width <= containerWidth) {
-            character1.style.left = `${leftPosition1 + movementSpeed}px`;
+        if (keysPressed["d"] || keysPressed["D"]) {
+            if (leftPosition1 + movementSpeed + character1Width <= containerWidth) {
+                character1.style.left = `${leftPosition1 + movementSpeed}px`;
+            }
         }
     }
 
     // Movimiento del jugador 2 (Flechas izquierda y derecha)
     const character2 = document.getElementById("character2");
-    const character2Width = character2.offsetWidth;
-    let leftPosition2 = character2.offsetLeft;
+    if (character2) {
+        const containerWidth = container.offsetWidth;
+        const character2Width = character2.offsetWidth;
+        let leftPosition2 = character2.offsetLeft;
 
-    if (keysPressed["ArrowLeft"]) {
-        if (leftPosition2 - movementSpeed >= 0) {
-            character2.style.left = `${leftPosition2 - movementSpeed}px`;
+        if (keysPressed["ArrowLeft"]) {
+            if (leftPosition2 - movementSpeed >= 0) {
+                character2.style.left = `${leftPosition2 - movementSpeed}px`;
+            }
         }
-    }
-    if (keysPressed["ArrowRight"]) {
-        if (leftPosition2 + movementSpeed + character2Width <= containerWidth) {
-            character2.style.left = `${leftPosition2 + movementSpeed}px`;
+        if (keysPressed["ArrowRight"]) {
+            if (leftPosition2 + movementSpeed + character2Width <= containerWidth) {
+                character2.style.left = `${leftPosition2 + movementSpeed}px`;
+            }
         }
     }
 
     // Llama a esta función en el siguiente frame
     requestAnimationFrame(movePlayers);
 }
-
-// Inicia el bucle de movimiento
-movePlayers();
-
 
 //PlayerLives
 let player1Lives = 3;
@@ -253,7 +257,9 @@ function perderVida(jugador) {
 
         if (player1Lives <= 0) {
             console.log("Player 1 ha perdido!");
-            // Aquí puedes implementar lógica para finalizar el juego
+            mostrarExplosion(jugador); // Mostrar explosión en la posición del jugador
+            jugador.remove(); // Eliminar al jugador del DOM
+            mostrarGameOver("PLAYER 2 WIN");
         }
     } else if (jugador.id === "character2") {
         player2Lives--;
@@ -262,7 +268,9 @@ function perderVida(jugador) {
 
         if (player2Lives <= 0) {
             console.log("Player 2 ha perdido!");
-            // Aquí puedes implementar lógica para finalizar el juego
+            mostrarExplosion(jugador); // Mostrar explosión en la posición del jugador
+            jugador.remove(); // Eliminar al jugador del DOM
+            mostrarGameOver("PLAYER 1 WIN");
         }
     }
 }
@@ -285,3 +293,114 @@ function detectarColisionConBala(jugador, bala) {
         bala.remove();
     }
 }
+
+let gameOver = false; // Indica si el juego ha terminado
+
+// Función para mostrar el cuadro de "GAME OVER"
+function mostrarGameOver(mensaje) {
+    gameOver = true; // Detener todas las acciones del juego
+
+    // Crear el contenedor del cuadro
+    const gameOverContainer = document.createElement("div");
+    gameOverContainer.id = "gameOverContainer";
+    gameOverContainer.style.position = "fixed";
+    gameOverContainer.style.top = "50%";
+    gameOverContainer.style.left = "50%";
+    gameOverContainer.style.transform = "translate(-50%, -50%)";
+    gameOverContainer.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+    gameOverContainer.style.color = "white";
+    gameOverContainer.style.padding = "50px";
+    gameOverContainer.style.textAlign = "center";
+    gameOverContainer.style.border = "3px solid white";
+    gameOverContainer.style.borderRadius = "10px";
+    gameOverContainer.style.zIndex = "1000";
+
+    // Agregar el mensaje de "GAME OVER"
+    const gameOverText = document.createElement("h1");
+    gameOverText.textContent = "GAME OVER";
+    gameOverText.style.fontFamily = "'Press Start 2P', cursive";
+    gameOverText.style.marginBottom = "20px";
+
+    // Agregar el mensaje del ganador
+    const winnerText = document.createElement("p");
+    winnerText.textContent = mensaje;
+    winnerText.style.fontFamily = "'Press Start 2P', cursive";
+    winnerText.style.fontSize = "20px";
+    winnerText.style.marginBottom = "20px";
+
+    // Agregar el mensaje para reiniciar la partida
+    const restartText = document.createElement("p");
+    restartText.textContent = "Pulsa F5 para reiniciar la partida";
+    restartText.style.fontFamily = "'Press Start 2P', cursive";
+    restartText.style.fontSize = "16px";
+    restartText.style.color = "lightgray";
+
+    // Agregar los elementos al contenedor
+    gameOverContainer.appendChild(gameOverText);
+    gameOverContainer.appendChild(winnerText);
+    gameOverContainer.appendChild(restartText);
+
+    // Agregar el contenedor al body
+    document.body.appendChild(gameOverContainer);
+}
+
+// Función para manejar la pérdida de vida
+function perderVida(jugador) {
+    if (jugador.id === "character1") {
+        player1Lives--;
+        console.log(`Player 1 Lives: ${player1Lives}`);
+        actualizarVidas("player1Lives", player1Lives);
+
+        if (player1Lives <= 0) {
+            console.log("Player 1 ha perdido!");
+            mostrarExplosion(jugador); // Mostrar explosión en la posición del jugador
+            jugador.remove(); // Eliminar al jugador del DOM
+            mostrarGameOver("PLAYER 2 WIN");
+        }
+    } else if (jugador.id === "character2") {
+        player2Lives--;
+        console.log(`Player 2 Lives: ${player2Lives}`);
+        actualizarVidas("player2Lives", player2Lives);
+
+        if (player2Lives <= 0) {
+            console.log("Player 2 ha perdido!");
+            mostrarExplosion(jugador); // Mostrar explosión en la posición del jugador
+            jugador.remove(); // Eliminar al jugador del DOM
+            mostrarGameOver("PLAYER 1 WIN");
+        }
+    }
+}
+
+// Función para mostrar una explosión en la posición del jugador
+function mostrarExplosion(jugador) {
+    console.log("Mostrando explosión para:", jugador.id);
+    const explosion = document.createElement("img");
+    explosion.src = "Images/Explosion/ufoExplosion.png"; // Ruta de la imagen de la explosión
+    explosion.style.position = "absolute";
+    explosion.style.width = "150px"; // Ajusta el tamaño de la explosión
+    explosion.style.height = "150px";
+
+    const jugadorRect = jugador.getBoundingClientRect();
+    console.log("Posición del jugador:", jugadorRect);
+
+    explosion.style.left = `${jugadorRect.left}px`;
+    explosion.style.top = `${jugadorRect.top}px`;
+
+    const container = document.getElementById("espacioMaximo");
+    if (!container) {
+        console.error("No se encontró el contenedor 'espacioMaximo'");
+        return;
+    }
+
+    container.appendChild(explosion);
+    console.log("Explosión agregada al contenedor.");
+
+    setTimeout(() => {
+        explosion.remove();
+        console.log("Explosión eliminada.");
+    }, 1000); // La explosión desaparece después de 1 segundo
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    movePlayers(); // Inicia el bucle de movimiento después de que el DOM esté cargado
+});
