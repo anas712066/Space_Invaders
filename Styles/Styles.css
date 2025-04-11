@@ -85,6 +85,10 @@ body {
     margin: 5px;
 }
 
+.espacio_arriba{
+    margin-top: 20px;
+}
+
 /*Fuentes*/
 .eliminaciones{
     font-family: 'Press Start 2P', cursive;
