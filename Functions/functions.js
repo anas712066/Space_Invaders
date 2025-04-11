@@ -455,8 +455,11 @@ function perderVida(jugador) {
 
         if (player1Lives <= 0) {
             console.log("Player 1 ha perdido!");
-            jugador.remove(); // Eliminar al jugador del DOM
-            mostrarGameOver("PLAYER 2 WIN");
+            mostrarExplosion(jugador); // Mostrar imagen de pérdida
+            setTimeout(() => {
+                jugador.remove(); // Eliminar al jugador del DOM después de 2 segundos
+                mostrarGameOver("PLAYER 2 WIN");
+            }, 2000);
         }
     } else if (jugador.id === "character2") {
         player2Lives--;
@@ -465,10 +468,36 @@ function perderVida(jugador) {
 
         if (player2Lives <= 0) {
             console.log("Player 2 ha perdido!");
-            jugador.remove(); // Eliminar al jugador del DOM
-            mostrarGameOver("PLAYER 1 WIN");
+            mostrarExplosion(jugador); // Mostrar imagen de pérdida
+            setTimeout(() => {
+                jugador.remove(); // Eliminar al jugador del DOM después de 2 segundos
+                mostrarGameOver("PLAYER 1 WIN");
+            }, 2000);
         }
     }
+}
+
+// Función para mostrar una imagen en la posición del jugador eliminado
+function mostrarExplosion(jugador) {
+    // Obtener las coordenadas del jugador
+    const jugadorRect = jugador.getBoundingClientRect();
+
+    // Crear la imagen
+    const imagen = document.createElement("img");
+    imagen.src = "Images/Explosion/invaderExplosion.png"; // Ruta de la imagen
+    imagen.style.position = "absolute";
+    imagen.style.width = "120px"; // Ajusta el tamaño de la imagen
+    imagen.style.left = `${jugadorRect.left}px`;
+    imagen.style.top = `${jugadorRect.top}px`;
+    imagen.style.zIndex = "1000"; // Asegura que esté por encima de otros elementos
+
+    // Agregar la imagen al body
+    document.body.appendChild(imagen);
+
+    // Eliminar la imagen después de 2 segundos
+    setTimeout(() => {
+        imagen.remove();
+    }, 2000);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
