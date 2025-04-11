@@ -4,22 +4,22 @@ let killsp2 = 0;
 
 // Sumar kills para el jugador 1
 function sumarKillP1() {
-    killsp1 += 1; // Incrementar las kills del jugador 1
+    killsp1 += 2; // Incrementar las kills del jugador 1
     document.querySelector("#killsPlayer1").innerHTML = killsp1; // Actualizar el DOM
 
-    // Verificar si el jugador 1 ha alcanzado 10 puntos
-    if (killsp1 === 100) {
+    // Verificar si el jugador 1 ha alcanzado 200 puntos
+    if (killsp1 === 200) {
         mostrarWinner("PLAYER 1 WINNER!");
     }
 }
 
 // Sumar kills para el jugador 2
 function sumarKillP2() {
-    killsp2 += 1; // Incrementar las kills del jugador 2
+    killsp2 += 2; // Incrementar las kills del jugador 2
     document.querySelector("#killsPlayer2").innerHTML = killsp2; // Actualizar el DOM
 
-    // Verificar si el jugador 2 ha alcanzado 10 puntos
-    if (killsp2 === 100) {
+    // Verificar si el jugador 2 ha alcanzado 200 puntos
+    if (killsp2 === 200) {
         mostrarWinner("PLAYER 2 WINNER!");
     }
 }
